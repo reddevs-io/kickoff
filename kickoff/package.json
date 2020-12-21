@@ -10,7 +10,12 @@
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
-    "@oclif/plugin-help": "^3"
+    "@oclif/plugin-help": "^3",
+    "@types/inquirer": "^7.3.1",
+    "chalk": "^4.1.0",
+    "inquirer": "^7.3.3",
+    "inquirer-fuzzy-path": "^2.3.0",
+    "ncp": "^2.0.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",

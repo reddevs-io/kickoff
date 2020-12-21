@@ -28,16 +28,16 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`kickoff hello`](#kickoff-hello)
+* [`kickoff create`](#kickoff-create)
 * [`kickoff help [COMMAND]`](#kickoff-help-command)
 
-## `kickoff hello`
+## `kickoff create`
 
 Describe the command here
 
 ```
 USAGE
-  $ kickoff hello
+  $ kickoff create
 
 OPTIONS
   -n, --name=name  name to print
@@ -47,7 +47,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/hello.js](https://github.com/reddevs-io/kickoff/blob/v0.0.0/src/commands/hello.js)_
+_See code: [src/commands/create.js](https://github.com/reddevs-io/kickoff/blob/v0.0.0/src/commands/create.js)_
 
 ## `kickoff help [COMMAND]`
 
