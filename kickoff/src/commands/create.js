@@ -1,6 +1,5 @@
 const {Command, flags} = require('@oclif/command')
 const inquirer = require('inquirer')
-inquirer.registerPrompt('fuzzypath', require('inquirer-fuzzy-path'))
 const chalk  = require('chalk')
 const fs = require('fs')
 const ncp = require('ncp').ncp
@@ -26,7 +25,7 @@ class CreateCommand extends Command {
   generateProjectFiles(userInput) {
     let appName = userInput.name
     let appType = userInput.type
-    // let phpVersion = userInput.php
+    let phpVersion = userInput.php
     let additionalServices = userInput.services
 
     let folderName = this.cleanAppName(appName)
@@ -45,16 +44,17 @@ class CreateCommand extends Command {
       })
     })
 
-    let dockerCompose = this.getDockerComposeJson(folderName, additionalServices)
+    let dockerCompose = this.getDockerComposeJson(folderName, additionalServices, appType, phpVersion)
 
     fs.writeFile(folderName + '/docker-compose.yml', yaml.safeDump(dockerCompose), 'utf8', err => {
       if (err) {
         return this.log('There was a problem while generating the docker-compose.yaml file: ' + chalk.red(err))
       }
+      this.printSuccessMessage(appType, folderName)
     })
   }
 
-  getDockerComposeJson(appName, additionalServices) {
+  getDockerComposeJson(appName, additionalServices, appType, phpVersion) {
     let dockerCompose = {
       version: '3',
       services: {
@@ -87,9 +87,7 @@ class CreateCommand extends Command {
           restart: 'always',
         },
         php: {
-          build: {
-            context: './.kickoff/php',
-          },
+          image: 'reddevsdotio/kickoff-' + appType + ':' + phpVersion,
           // eslint-disable-next-line camelcase
           container_name: appName + '_php',
           environment: {
