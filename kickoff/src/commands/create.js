@@ -50,6 +50,12 @@ class CreateCommand extends Command {
       if (err) {
         return this.log('There was a problem while generating the docker-compose.yaml file: ' + chalk.red(err))
       }
+    })
+
+    fs.mkdir(folderName + '/' + appType, err => {
+      if (err) {
+        return this.log("There was a problem creating your app's folder: " + chalk.red(err.toString()))
+      }
       this.printSuccessMessage(appType, folderName)
     })
   }
