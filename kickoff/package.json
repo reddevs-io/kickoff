@@ -15,6 +15,7 @@
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",
     "inquirer-fuzzy-path": "^2.3.0",
+    "js-yaml": "^3.14.1",
     "ncp": "^2.0.0"
   },
   "devDependencies": {
