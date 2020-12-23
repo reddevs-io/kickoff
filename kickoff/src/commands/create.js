@@ -7,6 +7,34 @@ const path = require('path')
 const yaml = require('js-yaml')
 
 class CreateCommand extends Command {
+  prompts(){
+    return await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'type',
+        message: 'Project type:',
+        choices: ['symfony', 'drupal'],
+      },
+      {
+        type: 'list',
+        name: 'php',
+        message: 'PHP version:',
+        choices: ['7.3', '7.4', '8'],
+      },
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Application name:',
+      },
+      {
+        type: 'checkbox',
+        name: 'services',
+        message: 'Additional services:',
+        choices: ['database', 'mail'],
+      },
+    ])
+  }
+
   cleanAppName(appName) {
     return appName.trim().toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
   }
@@ -160,32 +188,7 @@ class CreateCommand extends Command {
   }
 
   async run() {
-    let userInput = await inquirer.prompt([
-      {
-        type: 'list',
-        name: 'type',
-        message: 'Project type:',
-        choices: ['symfony', 'drupal'],
-      },
-      {
-        type: 'list',
-        name: 'php',
-        message: 'PHP version:',
-        choices: ['7.3', '7.4', '8'],
-      },
-      {
-        type: 'input',
-        name: 'name',
-        message: 'Application name:',
-      },
-      {
-        type: 'checkbox',
-        name: 'services',
-        message: 'Additional services:',
-        choices: ['database', 'mail'],
-      },
-    ])
-
+    let userInput = this.prompts()
     this.generateProjectFiles(userInput)
   }
 }
