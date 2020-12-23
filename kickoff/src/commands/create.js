@@ -7,8 +7,8 @@ const path = require('path')
 const yaml = require('js-yaml')
 
 class CreateCommand extends Command {
-  prompts(){
-    return await inquirer.prompt([
+  async prompts() {
+    return inquirer.prompt([
       {
         type: 'list',
         name: 'type',
@@ -188,7 +188,7 @@ class CreateCommand extends Command {
   }
 
   async run() {
-    let userInput = this.prompts()
+    let userInput = await this.prompts()
     this.generateProjectFiles(userInput)
   }
 }
