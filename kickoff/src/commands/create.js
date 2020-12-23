@@ -8,6 +8,8 @@ const yaml = require('js-yaml')
 
 class CreateCommand extends Command {
   async prompts() {
+    let phpFrameworks = ['symfony', 'drupal']
+
     return inquirer.prompt([
       {
         type: 'list',
@@ -20,6 +22,7 @@ class CreateCommand extends Command {
         name: 'php',
         message: 'PHP version:',
         choices: ['7.3', '7.4', '8'],
+        when: answers => phpFrameworks.includes(answers.type),
       },
       {
         type: 'input',
@@ -30,13 +33,20 @@ class CreateCommand extends Command {
         type: 'checkbox',
         name: 'services',
         message: 'Additional services:',
-        choices: ['database', 'mail'],
+        choices: ['mariadb', 'mailhog'],
+      },
+      {
+        type: 'list',
+        name: 'mariadbVersion',
+        message: 'Mariadb version:',
+        choices: ['10.2', '10.3', '10.4', '10.5'],
+        when: answers => answers.services.includes('mariadb'),
       },
     ])
   }
 
   cleanAppName(appName) {
-    return appName.trim().toLowerCase().replace(/[^a-zA-Z0-9]/g, '')
+    return appName.trim().toLowerCase().replace(/\s+/g, '-')
   }
 
   printSuccessMessage(projectType, folderName) {
@@ -51,13 +61,8 @@ class CreateCommand extends Command {
   }
 
   generateProjectFiles(userInput) {
-    let appName = userInput.name
-    let appType = userInput.type
-    let phpVersion = userInput.php
-    let additionalServices = userInput.services
-
-    let folderName = this.cleanAppName(appName)
-    let templateFolder = path.join(__dirname, '/templates/', appType)
+    let folderName = this.cleanAppName(userInput.name)
+    let templateFolder = path.join(__dirname, '/templates/', userInput.type)
 
     fs.mkdir(folderName, err => {
       if (err) {
@@ -72,7 +77,7 @@ class CreateCommand extends Command {
       })
     })
 
-    let dockerCompose = this.getDockerComposeJson(folderName, additionalServices, appType, phpVersion)
+    let dockerCompose = this.getDockerComposeJson(folderName, userInput)
 
     fs.writeFile(folderName + '/docker-compose.yml', yaml.safeDump(dockerCompose), 'utf8', err => {
       if (err) {
@@ -80,15 +85,15 @@ class CreateCommand extends Command {
       }
     })
 
-    fs.mkdir(folderName + '/' + appType, err => {
+    fs.mkdir(folderName + '/' + userInput.type, err => {
       if (err) {
         return this.log("There was a problem creating your app's folder: " + chalk.red(err.toString()))
       }
-      this.printSuccessMessage(appType, folderName)
+      this.printSuccessMessage(userInput.type, folderName)
     })
   }
 
-  getDockerComposeJson(appName, additionalServices, appType, phpVersion) {
+  getDockerComposeJson(appName, userInput) {
     let dockerCompose = {
       version: '3',
       services: {
@@ -121,7 +126,7 @@ class CreateCommand extends Command {
           restart: 'always',
         },
         php: {
-          image: 'reddevsdotio/kickoff-' + appType + ':' + phpVersion,
+          image: 'reddevsdotio/kickoff-' + userInput.type + ':' + userInput.php,
           // eslint-disable-next-line camelcase
           container_name: appName + '_php',
           environment: {
@@ -143,9 +148,9 @@ class CreateCommand extends Command {
       },
     }
 
-    if (additionalServices.includes('database')) {
+    if (userInput.services.includes('mariadb')) {
       dockerCompose.services.database = {
-        image: 'mariadb:10.5',
+        image: 'mariadb:' + userInput.mariadbVersion,
         // eslint-disable-next-line camelcase
         container_name: appName + '_database',
         environment: [
@@ -163,7 +168,7 @@ class CreateCommand extends Command {
       ]
     }
 
-    if (additionalServices.includes('mail')) {
+    if (userInput.services.includes('mailhog')) {
       dockerCompose.services.mail = {
         image: 'mailhog/mailhog',
         // eslint-disable-next-line camelcase
