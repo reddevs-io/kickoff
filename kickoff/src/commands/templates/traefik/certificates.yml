@@ -1,0 +1,6 @@
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: "/certs/reddevs.crt"
+        keyFile: "/certs/reddevs.key"

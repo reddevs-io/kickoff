@@ -28,6 +28,7 @@ class CreateCommand extends Command {
         type: 'input',
         name: 'name',
         message: 'Application name:',
+        transformer: input => this.cleanAppName(input),
       },
       {
         type: 'checkbox',
@@ -64,6 +65,7 @@ class CreateCommand extends Command {
     let folderName = this.cleanAppName(userInput.name)
     let templateFolder = path.join(__dirname, '/templates/', userInput.type)
 
+    this.log(chalk.cyan('Creating project folder...'))
     fs.mkdir(folderName, err => {
       if (err) {
         return this.log("There was a problem creating your project's folder: " + chalk.red(err.toString()))
@@ -77,14 +79,15 @@ class CreateCommand extends Command {
       })
     })
 
+    this.log(chalk.cyan('Generating docker-compose.yml file...'))
     let dockerCompose = this.getDockerComposeJson(folderName, userInput)
-
     fs.writeFile(folderName + '/docker-compose.yml', yaml.safeDump(dockerCompose), 'utf8', err => {
       if (err) {
         return this.log('There was a problem while generating the docker-compose.yaml file: ' + chalk.red(err))
       }
     })
 
+    this.log(chalk.cyan(`Creating ${userInput.type} folder...`))
     fs.mkdir(folderName + '/' + userInput.type, err => {
       if (err) {
         return this.log("There was a problem creating your app's folder: " + chalk.red(err.toString()))
@@ -142,7 +145,7 @@ class CreateCommand extends Command {
       networks: {
         'kickoff-proxy': {
           external: {
-            name: 'kickoff-proxy',
+            name: 'kickoff_default',
           },
         },
       },

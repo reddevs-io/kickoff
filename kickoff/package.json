@@ -12,11 +12,13 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
     "@types/inquirer": "^7.3.1",
+    "async": "^3.2.0",
     "chalk": "^4.1.0",
+    "dockerode": "^3.2.1",
     "inquirer": "^7.3.3",
-    "inquirer-fuzzy-path": "^2.3.0",
     "js-yaml": "^3.14.1",
-    "ncp": "^2.0.0"
+    "ncp": "^2.0.0",
+    "selfsigned": "^1.10.8"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",

@@ -29,11 +29,13 @@ USAGE
 # Commands
 <!-- commands -->
 * [`kickoff create`](#kickoff-create)
+* [`kickoff destroy`](#kickoff-destroy)
 * [`kickoff help [COMMAND]`](#kickoff-help-command)
+* [`kickoff start`](#kickoff-start)
 
 ## `kickoff create`
 
-Describe the command here
+Creates a project
 
 ```
 USAGE
@@ -48,6 +50,24 @@ DESCRIPTION
 ```
 
 _See code: [src/commands/create.js](https://github.com/reddevs-io/kickoff/blob/v0.0.0/src/commands/create.js)_
+
+## `kickoff destroy`
+
+Describe the command here
+
+```
+USAGE
+  $ kickoff destroy
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/destroy.js](https://github.com/reddevs-io/kickoff/blob/v0.0.0/src/commands/destroy.js)_
 
 ## `kickoff help [COMMAND]`
 
@@ -65,4 +85,22 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1/src/commands/help.ts)_
+
+## `kickoff start`
+
+Describe the command here
+
+```
+USAGE
+  $ kickoff start
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/start.js](https://github.com/reddevs-io/kickoff/blob/v0.0.0/src/commands/start.js)_
 <!-- commandsstop -->
