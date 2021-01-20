@@ -13,32 +13,32 @@ ARG XDEBUG_VERSION=2.9.8
 RUN set -eux; \
 	\
 	apk add --no-cache --virtual .build-deps \
+	    $PHPIZE_DEPS \
 		coreutils \
 		freetype-dev \
 		libjpeg-turbo-dev \
 		libpng-dev \
 		libzip-dev \
-		postgresql-dev \
+		patch \
 	; \
 	\
-	docker-php-ext-configure gd \
-		--with-freetype \
-		--with-jpeg=/usr/include \
+	docker-php-ext-configure gd --with-freetype --with-jpeg=/usr/include \
 	; \
 	\
 	docker-php-ext-install -j "$(nproc)" \
 		gd \
 		opcache \
 		pdo_mysql \
-		pdo_pgsql \
 		zip \
 	; \
 	pecl install \
         xdebug-${XDEBUG_VERSION} \
+        apcu \
     ; \
     pecl clear-cache; \
     docker-php-ext-enable \
         xdebug \
+        apcu \
     ; \
 	\
 	runDeps="$( \
@@ -55,6 +55,11 @@ RUN apk add --no-cache mariadb-client
 COPY --from=composer:1.10 /usr/bin/composer /usr/bin/composer
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
+
+#Install drush launcher
+ADD https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar drush.phar
+RUN chmod +x drush.phar \
+    && mv drush.phar /usr/local/bin/drush
 
 # Change PHP-FPM user
 RUN addgroup -g 1000 -S web \
