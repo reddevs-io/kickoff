@@ -4,7 +4,7 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=8
+ARG PHP_VERSION=8.0
 
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine
@@ -19,7 +19,7 @@ RUN apk add --no-cache \
 	;
 
 ARG APCU_VERSION=5.1.19
-ARG XDEBUG_VERSION=2.9.8
+ARG XDEBUG_VERSION=3.0.2
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
