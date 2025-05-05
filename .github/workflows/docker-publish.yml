@@ -41,15 +41,45 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           set -e
-          for dir in kickoff/docker/symfony/php-*; do
-            version="${dir##*-}"
-            image="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${version}"
-            echo "Building and pushing $image from $dir"
-            docker buildx build \
-              --push \
-              --tag "$image" \
-              "$dir"
+          # Enable nullglob: if no matches, the glob expands to nothing
+          shopt -s nullglob
+          found=0
+          target_dir="kickoff/docker/symfony"
+      
+          # First, check if the base directory exists
+          if [ ! -d "$target_dir" ]; then
+            echo "Error: Base directory '$target_dir' not found!"
+            exit 1
+          fi
+      
+          echo "Looking for version directories in '$target_dir'..."
+          ls -l "$target_dir" # Add this line for debugging
+      
+          for dir in "$target_dir"/php-*; do
+            # Check if it's actually a directory (nullglob handles no matches)
+            if [ -d "$dir" ]; then
+              found=1
+              version="${dir##*-}"
+              # Check if version extraction worked (avoid empty or '*' tags)
+              if [ -z "$version" ] || [ "$version" = "*" ]; then
+                 echo "Error: Could not extract version from directory '$dir'"
+                 exit 1
+              fi
+      
+              image="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${version}"
+              echo "Building and pushing $image from $dir"
+              docker buildx build \
+                --push \
+                --tag "$image" \
+                "$dir"
+            fi
           done
+      
+          # Check if any directories were processed
+          if [ $found -eq 0 ]; then
+            echo "Error: No version directories matching '$target_dir/php-*' were found."
+            exit 1
+          fi
 
       - name: Sign all published Docker images
         if: github.event_name != 'pull_request'
