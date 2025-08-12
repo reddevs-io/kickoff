@@ -11,6 +11,7 @@
 - Added database version selection with latest 3 versions for each engine
 - Added web server selection prompt with conditional options based on project type
 - Added PHP/Node.js version selection prompt based on project type
+- Added additional services multi-select prompt with conditional sub-prompts for search engine, caching services, and MailHog
 
 ## Next Steps
 1. Map database choices to Docker Compose templates

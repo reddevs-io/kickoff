@@ -14,6 +14,8 @@ manual configuration steps while keeping the setup transparent and extensible.
    - PHP/Node.js version
    - Web server (nginx, apache, nginx unit, none)
    - Additional services (database, Mailhog, Redis, search server, other)
+   - Multi-select prompt for additional services (search engine, MailHog, caching services)
+   - Conditional prompts for selected services (search engine choice, caching service selection)
 4. A loading spinner is displayed while files are generated.
 5. Docker Compose file and any additional files are created.
 

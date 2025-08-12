@@ -5,7 +5,7 @@ Monolithic CLI application built with Oclif.
 
 ## Main Components
 - CLI command parser (Oclif)
-- Interactive prompt handler (e.g., Inquirer.js)
+- Interactive prompt handler (Inquirer.js with multi-select support)
 - Config generator (maps user choices to Docker Compose templates)
 - File writer (creates `docker-compose.yml` and supporting files)
 

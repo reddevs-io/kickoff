@@ -8,6 +8,7 @@
 - Custom Docker image input for "Other" option
 - Database version selection with latest 3 versions for each engine
 - Web server selection prompt with conditional options based on project type
+- Additional services multi-select prompt with conditional sub-prompts for search engine, caching services, and MailHog
 - Project builds successfully
 - Basic test structure in place
 
