@@ -1,20 +1,31 @@
 # Progress — Kickoff
 
 ## What Works
-- Nothing yet — project setup in progress
+- `kickoff init` command with interactive framework selection prompt
+- PHP/Node.js version selection prompt based on project type
+- Database requirement prompt with Yes/No option
+- Database engine selection (MySQL, MariaDB, PostgreSQL, Other)
+- Custom Docker image input for "Other" option
+- Database version selection with latest 3 versions for each engine
+- Web server selection prompt with conditional options based on project type
+- Project builds successfully
+- Basic test structure in place
 
-## What’s Left
-- All core functionality
+## What's Left
+- Docker Compose template generation
+- File writing functionality
+- Complete test coverage for new prompts
+- Additional service prompts (Mailhog, Redis, search server, etc.)
 
 ## Known Issues
 - None yet
 
 ## Current Status
-- Planning and initial setup
+- Enhanced init command with database configuration prompts
 
 ## Last Completed Milestone
-- None — project just started
+- Implemented additional interactive prompts for database configuration
 
 ## Next Milestone
-- Working `kickoff init` command that generates a basic Docker Compose setup
-  for Drupal, Symfony, and Next.js
+- Create Docker Compose templates for each framework type with database support
+- Implement file writing functionality
