@@ -10,7 +10,7 @@ Monolithic CLI application built with Oclif.
 - File writer (creates `docker-compose.yml` and supporting files)
 
 ## Data Flow
-`kickoff init` → CLI prompts for input → DockerComposeGenerator service creates configuration objects →
+`kickoff init` → CLI arguments or prompts for input → DockerComposeGenerator service creates configuration objects →
 js-yaml serializes to YAML → file writer outputs files → success message.
 
 ## API Style

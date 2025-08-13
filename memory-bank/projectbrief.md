@@ -3,7 +3,8 @@
 ## Overview
 Kickoff is a CLI tool that speeds up bootstrapping a Docker Compose setup for
 Drupal, Symfony, or Next.js development projects, with optional additional
-services based on user input.
+services based on user input. It supports both interactive prompts and
+command-line arguments for scriptable usage.
 
 ## Core Problem
 Developers often spend time manually configuring Docker Compose setups for

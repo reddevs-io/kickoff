@@ -10,6 +10,7 @@
 - Database version selection with latest 3 versions for each engine
 - Web server selection prompt with conditional options based on project type
 - Additional services multi-select prompt with conditional sub-prompts for search engine, caching services, and MailHog
+- Command-line arguments for scriptable usage
 - Project builds successfully
 - Basic test structure in place
 - Docker Compose template generation with js-yaml

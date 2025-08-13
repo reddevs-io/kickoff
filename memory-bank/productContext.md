@@ -7,8 +7,8 @@ manual configuration steps while keeping the setup transparent and extensible.
 
 ## Main User Journey
 1. User installs the CLI tool.
-2. Runs `kickoff init`.
-3. CLI prompts for:
+2. Runs `kickoff init` with optional command-line arguments for scriptable usage, or without arguments for interactive prompts.
+3. CLI processes arguments or prompts for:
    - Project name (directory name)
    - Framework (Drupal, Symfony, Next.js)
    - PHP/Node.js version

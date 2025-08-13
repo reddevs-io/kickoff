@@ -68,13 +68,40 @@ Initialize a new Docker Compose setup for Drupal, Symfony, or Next.js
 
 ```
 USAGE
-  $ kickoff init
+  $ kickoff init [--additional-services <value>] [--caching-services <value>] [-d] [--database-engine
+    mysql|mariadb|postgres|other] [--database-image <value>] [--database-version <value>] [-f] [-o <value>] [-n <value>]
+    [-t drupal|symfony|nextjs] [-q] [--search-engine elasticsearch|meilisearch] [-v <value>] [-w
+    nginx|apache|nginx-unit|frankenphp|none]
+
+FLAGS
+  -d, --database                     Include a database service
+  -f, --force                        Overwrite existing files without prompting
+  -n, --project-name=<value>         Project name/directory name
+  -o, --output-dir=<value>           [default: .] Output directory for generated files
+  -q, --quiet                        Suppress output messages
+  -t, --project-type=<option>        Framework type
+                                     <options: drupal|symfony|nextjs>
+  -v, --version=<value>              PHP/Node.js version to use
+  -w, --web-server=<option>          Web server to use
+                                     <options: nginx|apache|nginx-unit|frankenphp|none>
+      --additional-services=<value>  Additional services to include (search,mailhog,caching)
+      --caching-services=<value>     Caching services to include (redis,memcache,varnish)
+      --database-engine=<option>     Database engine to use
+                                     <options: mysql|mariadb|postgres|other>
+      --database-image=<value>       Custom Docker image for database (when engine is other)
+      --database-version=<value>     Database version to use
+      --search-engine=<option>       Search engine to use
+                                     <options: elasticsearch|meilisearch>
 
 DESCRIPTION
   Initialize a new Docker Compose setup for Drupal, Symfony, or Next.js
 
 EXAMPLES
   $ kickoff init
+
+  $ kickoff init --project-name myapp --project-type drupal --version 8.2 --web-server nginx --database --database-engine mysql --database-version 8.4
+
+  $ kickoff init -n myapp -t nextjs -v 20 -w none --additional-services search,mailhog --search-engine meilisearch
 ```
 
 _See code: [src/commands/init.ts](https://github.com/reddevs-io/kickoff/blob/v0.1.0/src/commands/init.ts)_

@@ -3,6 +3,7 @@
 ## Current Focus
 - Docker Compose template generation service implementation
 - File writing functionality for generated configurations
+- Command-line arguments implementation for scriptable usage
 
 ## Recent Changes
 - Added project name prompt as first question
