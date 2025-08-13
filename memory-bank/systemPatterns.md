@@ -6,12 +6,12 @@ Monolithic CLI application built with Oclif.
 ## Main Components
 - CLI command parser (Oclif)
 - Interactive prompt handler (Inquirer.js with multi-select support)
-- Config generator (maps user choices to Docker Compose templates)
+- Docker Compose generator service (programmatic YAML generation using js-yaml)
 - File writer (creates `docker-compose.yml` and supporting files)
 
 ## Data Flow
-`kickoff init` → CLI prompts for input → config generator selects templates →
-file writer outputs files → success message.
+`kickoff init` → CLI prompts for input → DockerComposeGenerator service creates configuration objects →
+js-yaml serializes to YAML → file writer outputs files → success message.
 
 ## API Style
 None — all local file generation.

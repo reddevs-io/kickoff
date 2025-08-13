@@ -20,7 +20,7 @@ $ npm install -g kickoff
 $ kickoff COMMAND
 running command...
 $ kickoff (--version)
-kickoff/0.0.0 linux-x64 node-v22.14.0
+kickoff/0.1.0 linux-x64 node-v22.14.0
 $ kickoff --help [COMMAND]
 USAGE
   $ kickoff COMMAND
@@ -29,9 +29,8 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`kickoff hello PERSON`](#kickoff-hello-person)
-* [`kickoff hello world`](#kickoff-hello-world)
 * [`kickoff help [COMMAND]`](#kickoff-help-command)
+* [`kickoff init`](#kickoff-init)
 * [`kickoff plugins`](#kickoff-plugins)
 * [`kickoff plugins add PLUGIN`](#kickoff-plugins-add-plugin)
 * [`kickoff plugins:inspect PLUGIN...`](#kickoff-pluginsinspect-plugin)
@@ -42,48 +41,6 @@ USAGE
 * [`kickoff plugins uninstall [PLUGIN]`](#kickoff-plugins-uninstall-plugin)
 * [`kickoff plugins unlink [PLUGIN]`](#kickoff-plugins-unlink-plugin)
 * [`kickoff plugins update`](#kickoff-plugins-update)
-
-## `kickoff hello PERSON`
-
-Say hello
-
-```
-USAGE
-  $ kickoff hello PERSON -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
-
-FLAGS
-  -f, --from=<value>  (required) Who is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ kickoff hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
-```
-
-_See code: [src/commands/hello/index.ts](https://github.com/reddevs-io/kickoff/blob/v0.0.0/src/commands/hello/index.ts)_
-
-## `kickoff hello world`
-
-Say hello world
-
-```
-USAGE
-  $ kickoff hello world
-
-DESCRIPTION
-  Say hello world
-
-EXAMPLES
-  $ kickoff hello world
-  hello world! (./src/commands/hello/world.ts)
-```
-
-_See code: [src/commands/hello/world.ts](https://github.com/reddevs-io/kickoff/blob/v0.0.0/src/commands/hello/world.ts)_
 
 ## `kickoff help [COMMAND]`
 
@@ -104,6 +61,23 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v6.2.32/src/commands/help.ts)_
+
+## `kickoff init`
+
+Initialize a new Docker Compose setup for Drupal, Symfony, or Next.js
+
+```
+USAGE
+  $ kickoff init
+
+DESCRIPTION
+  Initialize a new Docker Compose setup for Drupal, Symfony, or Next.js
+
+EXAMPLES
+  $ kickoff init
+```
+
+_See code: [src/commands/init.ts](https://github.com/reddevs-io/kickoff/blob/v0.1.0/src/commands/init.ts)_
 
 ## `kickoff plugins`
 

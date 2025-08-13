@@ -1,6 +1,8 @@
 import {checkbox, confirm, input, select} from '@inquirer/prompts'
 import {Command} from '@oclif/core'
 
+import {DockerComposeGenerator} from '../services/docker-compose-generator.js'
+
 export default class Init extends Command {
   static override description = 'Initialize a new Docker Compose setup for Drupal, Symfony, or Next.js'
   static override examples = ['<%= config.bin %> <%= command.id %>']
@@ -61,13 +63,18 @@ export default class Init extends Command {
     this.log(`Selected version: ${version}`)
 
     // Second question: Database requirement
-    const requiresDatabase = await confirm({
+    let requiresDatabase = false
+    let databaseEngine: 'mariadb' | 'mysql' | 'other' | 'postgres' | undefined
+    let databaseVersion = ''
+    let customImage = ''
+
+    requiresDatabase = await confirm({
       message: 'Do you require a database?',
     })
 
     if (requiresDatabase) {
       // Third question: Database engine selection
-      const databaseEngine = await select({
+      databaseEngine = await select({
         choices: [
           {name: 'MySQL', value: 'mysql'},
           {name: 'MariaDB', value: 'mariadb'},
@@ -76,9 +83,6 @@ export default class Init extends Command {
         ],
         message: 'Which database engine would you like to use?',
       })
-
-      let databaseVersion = ''
-      let customImage = ''
 
       if (databaseEngine === 'other') {
         customImage = await input({
@@ -203,6 +207,26 @@ export default class Init extends Command {
       this.log('MailHog service will be included')
     }
 
-    // Future implementation will continue with Docker Compose generation...
+    // Generate Docker Compose configuration
+    try {
+      const generator = new DockerComposeGenerator({
+        additionalServices,
+        cachingServices: additionalServices.includes('caching') ? cachingServices : undefined,
+        customImage: databaseEngine === 'other' ? customImage : undefined,
+        databaseEngine: requiresDatabase ? databaseEngine : undefined,
+        databaseVersion: requiresDatabase && databaseEngine !== 'other' ? databaseVersion : undefined,
+        projectName,
+        projectType: projectType as 'drupal' | 'nextjs' | 'symfony',
+        requiresDatabase,
+        searchEngine: additionalServices.includes('search') ? searchEngine : undefined,
+        version,
+        webServer,
+      })
+
+      await generator.generate()
+      this.log('🎉 Docker Compose setup completed successfully!')
+    } catch (error) {
+      this.error(`Failed to generate Docker Compose setup: ${error instanceof Error ? error.message : String(error)}`)
+    }
   }
 }

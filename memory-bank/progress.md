@@ -12,22 +12,21 @@
 - Additional services multi-select prompt with conditional sub-prompts for search engine, caching services, and MailHog
 - Project builds successfully
 - Basic test structure in place
+- Docker Compose template generation with js-yaml
+- File writing functionality for docker-compose.yml
 
 ## What's Left
-- Docker Compose template generation
-- File writing functionality
 - Complete test coverage for new prompts
-- Additional service prompts (Mailhog, Redis, search server, etc.)
 
 ## Known Issues
 - None yet
 
 ## Current Status
-- Enhanced init command with database configuration prompts
+- Docker Compose template generation fully implemented
 
 ## Last Completed Milestone
-- Implemented additional interactive prompts for database configuration
+- Implemented Docker Compose template generation service
 
 ## Next Milestone
-- Create Docker Compose templates for each framework type with database support
-- Implement file writing functionality
+- Complete test coverage for Docker Compose generation
+- Add more comprehensive testing for different framework combinations
