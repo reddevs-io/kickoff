@@ -168,7 +168,46 @@ export class DockerComposeGenerator {
 
     if (this.config.databaseEngine === 'other' && this.config.customImage) {
       service.image = this.config.customImage
-      return
+    } else {
+      switch (this.config.databaseEngine) {
+        case 'mariadb': {
+          service.image = `mariadb:${this.config.databaseVersion}`
+          service.ports = ['3306:3306']
+          service.environment = {
+            'MYSQL_DATABASE': this.config.projectType === 'drupal' ? 'drupal' : 'app',
+            'MYSQL_PASSWORD': this.config.projectType === 'drupal' ? 'drupal' : 'app',
+            'MYSQL_ROOT_PASSWORD': 'root',
+            'MYSQL_USER': this.config.projectType === 'drupal' ? 'drupal' : 'app'
+          }
+          service.volumes = [`${this.config.projectName}-mariadb-data:/var/lib/mysql`]
+          break
+        }
+  
+        case 'mysql': {
+          service.image = `mysql:${this.config.databaseVersion}`
+          service.ports = ['3306:3306']
+          service.environment = {
+            'MYSQL_DATABASE': this.config.projectType === 'drupal' ? 'drupal' : 'app',
+            'MYSQL_PASSWORD': this.config.projectType === 'drupal' ? 'drupal' : 'app',
+            'MYSQL_ROOT_PASSWORD': 'root',
+            'MYSQL_USER': this.config.projectType === 'drupal' ? 'drupal' : 'app'
+          }
+          service.volumes = [`${this.config.projectName}-mysql-data:/var/lib/mysql`]
+          break
+        }
+  
+        case 'postgres': {
+          service.image = `postgres:${this.config.databaseVersion}`
+          service.ports = ['5432:5432']
+          service.environment = {
+            'POSTGRES_DB': this.config.projectType === 'drupal' ? 'drupal' : 'app',
+            'POSTGRES_PASSWORD': this.config.projectType === 'drupal' ? 'drupal' : 'app',
+            'POSTGRES_USER': this.config.projectType === 'drupal' ? 'drupal' : 'app'
+          }
+          service.volumes = [`${this.config.projectName}-postgres-data:/var/lib/postgresql/data`]
+          break
+        }
+      }
     }
 
     switch (this.config.databaseEngine) {
