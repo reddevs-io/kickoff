@@ -1,3 +1,15 @@
-#IDE files
-.vscode
-.idea
+*-debug.log
+*-error.log
+**/.DS_Store
+/.idea
+/dist
+/tmp
+/node_modules
+oclif.manifest.json
+
+
+yarn.lock
+package-lock.json
+
+docker-compose.yml
+app
