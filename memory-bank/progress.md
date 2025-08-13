@@ -1,7 +1,8 @@
 # Progress — Kickoff
 
 ## What Works
-- `kickoff init` command with interactive framework selection prompt
+- `kickoff init` command with interactive project name prompt
+- Interactive framework selection prompt
 - PHP/Node.js version selection prompt based on project type
 - Database requirement prompt with Yes/No option
 - Database engine selection (MySQL, MariaDB, PostgreSQL, Other)

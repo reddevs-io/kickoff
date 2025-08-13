@@ -6,7 +6,25 @@ export default class Init extends Command {
   static override examples = ['<%= config.bin %> <%= command.id %>']
 
   public async run(): Promise<void> {
-    // First question: Project type selection
+    // First question: Project name
+    const projectName = await input({
+      message: 'What is your project name?',
+      validate(input: string) {
+        if (!input) {
+          return 'Project name is required'
+        }
+        
+        if (!/^[a-z0-9-]+$/.test(input)) {
+          return 'Project name must be lowercase and contain only letters, numbers, and hyphens (no spaces)'
+        }
+
+        return true
+      },
+    })
+
+    this.log(`Project name: ${projectName}`)
+
+    // Second question: Project type selection
     const projectType = await select({
       choices: [
         {name: 'Drupal', value: 'drupal'},

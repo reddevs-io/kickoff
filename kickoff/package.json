@@ -1,7 +1,7 @@
 {
   "name": "kickoff",
   "description": "CLI tool that speeds up bootstrapping a Docker Compose setup forDrupal, Symfony, or Next.js development projects",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Francis Makokha",
   "bin": {
     "kickoff": "./bin/run.js"

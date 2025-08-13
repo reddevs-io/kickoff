@@ -9,7 +9,7 @@ manual configuration steps while keeping the setup transparent and extensible.
 1. User installs the CLI tool.
 2. Runs `kickoff init`.
 3. CLI prompts for:
-   - Directory/project name
+   - Project name (directory name)
    - Framework (Drupal, Symfony, Next.js)
    - PHP/Node.js version
    - Web server (nginx, apache, nginx unit, none)

@@ -5,6 +5,7 @@
 - Implement database configuration workflow
 
 ## Recent Changes
+- Added project name prompt as first question
 - Added database requirement prompt
 - Added database engine selection (MySQL, MariaDB, PostgreSQL, Other)
 - Added custom Docker image input for "Other" option
